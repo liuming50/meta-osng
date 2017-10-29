@@ -46,13 +46,10 @@ fi
 
 BUILDDIR=${1:-/opt/build}
 TOPDIR=$(realpath "$THIS_SCRIPT_DIR/../../")
-OEDIR=$TOPDIR/openembedded-core
+OEROOT=$TOPDIR/openembedded-core
+
+# Override template conf file
+echo "$TOPDIR/meta-osng/conf/templateconf" > $BUILDDIR/conf/templateconf.cfg
 
 # Set up oe environment
-. $OEDIR/oe-init-build-env $BUILDDIR
-
-# Add meta layers
-bitbake-layers add-layer $TOPDIR/meta-openembedded/meta-oe
-bitbake-layers add-layer $TOPDIR/meta-virtualization
-bitbake-layers add-layer $TOPDIR/meta-java
-bitbake-layers add-layer $TOPDIR/meta-osng
+. $OEROOT/oe-init-build-env $BUILDDIR
